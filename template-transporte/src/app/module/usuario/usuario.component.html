@@ -1,0 +1,141 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Usuarios</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+           <li class="breadcrumb-item active">Usuarios</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title"></h5>
+                 <table class="table">
+                    <thead>
+                       <tr>
+                          <th scope="col">No.</th>
+                          
+                          <th scope="col">Nombres</th>
+                          <th scope="col">Usuario</th>
+                          <th scope="col">Correo</th>
+                          <th scope="col">Notificación</th>
+                          <th scope="col"></th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr *ngFor="let mail of usuarios">
+                          <th scope="row">{{ mail.id }}</th>
+                          
+                          <td>{{ mail.nombres }}</td>
+                          <td>{{ mail.username }}</td>
+                          <td>{{ mail.email }}</td>
+                          <td>
+                            <button class="btn btn-xl btn-success" *ngIf="mail.notificacion === true">
+                              <i class="bi bi-check-circle-fill"></i>
+                            </button>
+                            <button class="btn btn-xl btn-secondary" *ngIf="mail.notificacion === false">
+                              <i class="bi bi-check-circle-fill"></i>
+                            </button>
+                          </td>
+                          <td>
+                            <button (click)="openModal(mail)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCorreo">
+                              <i class="bi bi-pencil-square"></i>
+                            </button><!--
+                            <button class="btn btn-danger" (click)="deleteUsuario(mail)">
+                              <i class="bi bi-trash-fill"></i>
+                            </button>-->
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+     <button (click)="openModal(0)" class="btn btn-primary rounded-circle fab-button" data-bs-toggle="modal" data-bs-target="#modalCorreo">
+      <b><i class="bi bi-plus-lg"></i></b>
+     </button>
+
+     <div class="modal fade" id="modalCorreo" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Usuario</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <input type="text" [(ngModel)]="nombres" class="form-control" id="floatnombrecompleto" placeholder="Nombre completo">
+                    <label for="floatnombrecompleto">Nombre completo</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <input type="text" [(ngModel)]="email" class="form-control" id="floatdescripcargo" placeholder="example@id-logistics.cl">
+                    <label for="floatdescripcargo">Correo</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <select  class="form-select"  id="floatselect" [(ngModel)]="role">
+                      <option value="general" selected >General</option>
+                      <option value="transporte">Transporte</option>
+                    </select>
+                    <label for="floatselect">Selecciona un Rol</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <input type="text" [(ngModel)]="username" class="form-control" id="floatnombrecompleto" placeholder="example">
+                    <label for="floatnombrecompleto">Usuario</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <input type="password" [(ngModel)]="password" class="form-control" id="floatdescripcargo" placeholder="*********" required>
+                    <label for="floatdescripcargo">Contraseña</label>
+                  </div>
+                </div>
+
+
+                  <div class="col-sm-4" *ngIf="role === 'transporte'">
+                    <div class="form-floating mb-3" >
+                        <select class="form-select" id="clientess" [(ngModel)]="empresa"  >                     
+                          <option *ngFor="let cli of (empresaAll$ | async)" [value]="cli.nombre">{{ cli.nombre }}</option>
+                        </select>
+                        <label for="clientess">Empresa</label>
+                    </div>
+                  </div>
+               
+                
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <div class="form-floating mb-3">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="notificacion">
+                      <label class="form-check-label" for="flexSwitchCheckDefault">
+                        Notificar a Usuario
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">Guardar</button></div>
+         </div>
+      </div>
+   </div>
+
+  </section>
+</main>

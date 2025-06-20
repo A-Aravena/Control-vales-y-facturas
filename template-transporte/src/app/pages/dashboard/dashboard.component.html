@@ -1,0 +1,99 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Dashboard</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+             <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section dashboard">
+
+
+      <div class="row mb-3">
+         
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="clientess" [(ngModel)]="nomclic" >
+                  
+                  <option value="Todos" *ngIf="empresa==='null'">Todos</option>
+                  <option *ngFor="let cli of (clientesAll$ | async)" [value]="cli.nombre">{{ cli.nombre }}</option>
+                </select>
+                <label for="clientess">Clientes</label>
+            </div>
+          </div>
+         <div class="col-md-4">
+             <button class="btn btn-primary mt-4" (click)="getclienteFiltro()">Aplicar Filtro</button>
+         </div>
+     </div>
+
+     <div class="row">
+      <div class="col-lg-12">
+         <div class="row">
+            
+            <div class="col-xxl-3 col-md-6">
+               <div class="card info-card aprobadas-card">
+                  <div class="card-body">
+                     <h5 class="card-title">Estado <span>Conformado</span></h5>
+                     <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="ps-3">
+                           <h6>{{dataCards[0].conformado}}</h6>
+                           <span class="text-success small pt-1 fw-bold">{{((dataCards[0].conformado/(dataCards[0].nopresentado+dataCards[0].incompleto+dataCards[0].conformado))*100).toFixed(2)}}%</span> <span class="text-muted small pt-2 ps-1">del total</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xxl-3 col-md-6">
+               <div class="card info-card pendientes-card">
+                  <div class="card-body">
+                     <h5 class="card-title">Estado <span>Incompleto</span></h5>
+                     <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-exclamation-diamond"></i>
+                        </div>
+                        <div class="ps-3">
+                           <h6>{{dataCards[0].incompleto}}</h6>
+                           <span class="text-danger small pt-1 fw-bold">{{((dataCards[0].incompleto/(dataCards[0].nopresentado+dataCards[0].incompleto+dataCards[0].conformado))*100).toFixed(2)}}%</span> <span class="text-muted small pt-2 ps-1">del total</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xxl-3 col-md-6">
+              <div class="card info-card rechazadas-card">
+                 <div class="card-body">
+                    <h5 class="card-title">Estado <span>No presentado</span></h5>
+                    <div class="d-flex align-items-center">
+                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="bi bi-x-octagon"></i>
+                      </div>
+                       <div class="ps-3">
+                          <h6>{{dataCards[0].nopresentado}}</h6>
+                          <span class="text-danger small pt-1 fw-bold">{{((dataCards[0].nopresentado/(dataCards[0].nopresentado+dataCards[0].incompleto+dataCards[0].conformado))*100).toFixed(2)}}%</span> <span class="text-muted small pt-2 ps-1">del total</span>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+          </div>
+      </div>
+   </div>
+      <div class="row">
+        <div class="col-12">
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Estado <span>por día</span></h5>
+                 <div id="reportChart" style="min-height: 400px; display: block;" class="echart"></div>
+              </div>
+           </div>
+        </div>
+      </div>
+      
+          
+    </section>
+ </main>

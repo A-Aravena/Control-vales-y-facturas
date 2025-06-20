@@ -1,0 +1,37 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Archivos</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+             
+             <li class="breadcrumb-item active">Archivos</li>
+          </ol>
+       </nav>
+    </div>
+
+
+    <div class="pagetitle">
+        <h2>SUBIR ARCHIVOS</h2>
+        
+    </div>
+    
+
+    <div class="modal-body">
+        <div class="row mb-3 flex-column">
+            <div class="col-md-6" class="upload-button-container">
+                <label for="cargacontrolFlota" class="form-label">Control Flota:</label>
+                <input type="file" class="form-control" #fileInput accept=".xlsx" (change)="onFileSelected($event)" id="cargacontrolFlota">
+                <button type="button" class="btn btn-primary btn-block mt-2" (click)="uploadFile('controlflota')">Cargar Control Flota</button>
+            </div> <br><br>
+    
+            <div class="col-md-6 mt-3" class="upload-button-container">
+                <label for="cargaInva" class="form-label">INVA:</label>
+                <input type="file" class="form-control"  #fileInput accept=".xlsx" (change)="onFileSelected($event)"id="cargaInva">
+                <button type="button" class="btn btn-primary btn-block mt-2" (click)="uploadFile('inva')">Cargar INVA</button>
+            </div>
+        </div>
+    </div>
+
+  </main>
+  

@@ -1,0 +1,124 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Facturas</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+           
+           <li class="breadcrumb-item active">Facturas</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+              <div class="card-header">
+                <div class="row mb-3">
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                      <input type="date" [(ngModel)]="inicio" class="form-control" id="floatinicio" placeholder="Ingrese inicio de solicitud" >
+                      <label for="floatinicio">Rango Inicial de solicitud</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                      <input type="date" [(ngModel)]="fin"  class="form-control" id="floatfecestimadaingresocompleto" placeholder="Ingrese ">
+                      <label for="floatfecestimadaingresocompleto">Rango Final de solicitud</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                      <button class="btn btn-md btn-primary" (click)="getHistorial()">
+                        <i class="bi bi-check-circle"></i> Buscar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                 <h5 class="card-title">
+                 </h5>
+                 <table class="table">
+                    <thead>
+                       <tr>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Cliente</th>
+                          <th scope="col">DT</th>
+                          <th scope="col">N° Legal</th>
+                          <th scope="col">Cliente Final</th>
+                          <th scope="col">Cant Cajas</th>
+                          <th scope="col">Direccion</th>
+                          <th scope="col">Cliente Solicitante</th>
+                          <th scope="col">Fecha Factura</th>
+                          <th scope="col">POD</th>
+                          <th scope="col">Fecha Descarga</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr *ngFor="let motivo of solicitudes">
+                          <th scope="row">{{ motivo.id }}</th>
+                          <td>{{ motivo.solicitante }}</td>
+                          <td>{{ motivo.direccion }}</td>
+                          <td class="text-center">{{ motivo.centrocosto }}</td>
+                          <td>{{ motivo.cargo }}</td>
+                          <td>{{ motivo.contrato }}</td>
+                          <td class="text-center">{{ motivo.diassolicitud }}</td>
+                          <td class="text-center">{{ motivo.diasingreso }}</td>
+                          <td>
+                            <button class="btn btn-md btn-warning" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+                              <i class="bi bi-check-circle"></i>
+                            </button>
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+
+     <div class="modal fade" id="modalEmpleado" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Detalle</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-3">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Identidad</th>
+                      <th>Nombres</th>
+                      <th>Fec. Nacimiento</th>
+                      <th>Género</th>
+                      <th *ngIf="hasRole('ROLE_ADMIN')">Sueldo Bruto</th>
+                      <th>Fecha de Ingreso</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let emp of empleados">
+                      <td>{{ emp.identidad }}</td>
+                      <td>{{ emp.nombres }}</td>
+                      <td>{{ emp.fecnac | date:'dd/MM/yyyy' }}</td>
+                      <td>{{ emp.genero }}</td>
+                      <td *ngIf="hasRole('ROLE_ADMIN')"></td>
+                      <td>{{ emp.fecestimadaingreso | date:'dd/MM/yyyy' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+         </div>
+      </div>
+     </div>
+  </section>
+</main>

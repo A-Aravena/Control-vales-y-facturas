@@ -1,0 +1,21 @@
+.custom-slim-modal {
+    max-width: 50%; /* Ajusta el ancho según tus necesidades */
+    background-color: red;
+}
+
+.custom-wide-textarea {
+    width: 200%; /* Puedes ajustar el ancho según tus necesidades */
+}
+
+.texto-izquierda {
+    text-align: left;
+}
+.texto-derecha {
+    text-align: right;
+}
+.linea-vertical {
+    border-right: 1px solid black; /* Puedes ajustar el grosor y el color según lo necesites */
+}
+.margen-derecho {
+    margin-right: 10px; /* Puedes ajustar este valor según lo que necesites */
+}

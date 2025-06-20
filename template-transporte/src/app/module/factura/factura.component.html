@@ -1,0 +1,380 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Facturas</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+           
+           <li class="breadcrumb-item active">Facturas</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+              <div class="card-header">
+                <div class="row mb-3">
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                      <select [(ngModel)]="estado_final" class="form-control" id="estadofinal">
+                        <option value="">  </option>
+                        <option value="No Presentado">No presentado</option>
+                        <option value="Incompleto">Incompleto</option>
+                        <option value="Conformado">Conformado</option>
+                      </select>
+                      <label for="estadofinal">Estado</label>
+                    </div> 
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="text" [(ngModel)]="cliente_final" class="form-control" id="cliente" placeholder="Ingrese nombre cliente" > 
+                      <label for="cliente">Cliente </label>
+                    </div> 
+                  </div>
+                  <div class="col-sm-3"  *ngIf="hasRole('ROLE_GENERAL')">
+                    <div class="form-floating mb-3" >
+                       <input type="text" [(ngModel)]="empresa_" class="form-control" id="empresa" placeholder="Ingrese nombre empresa"  > 
+                      <label for="empresa">Empresa </label>
+                    </div> 
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="text" [(ngModel)]="dt"  class="form-control" id="dts" placeholder="Ingrese DT "> 
+                      <label for="dts">DT</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="text" [(ngModel)]="nro_legal"  class="form-control" id="nrolegal" placeholder="Ingrese N° Legal "> 
+                      <label for="nrolegal">N° Legal</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="text" [(ngModel)]="cantidad_cajas"  class="form-control" id="cantcajas" placeholder="Ingrese cantidad cajas"> 
+                      <label for="cantcajas">Cantidad Cajas</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="text" [(ngModel)]="desc_solicitante"  class="form-control" id="clientesoicitante" placeholder="Ingrese c;iente solicitante"> 
+
+                      <label for="clientesoicitante">Cliente Solicitante</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="date" [(ngModel)]="fa_fat_real"  class="form-control" id="fechaFactura" placeholder="Ingrese cliente solicitante"> 
+
+                      <label for="fechaFactura">Fecha Factura</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="date" [(ngModel)]="confpod"  class="form-control" id="pod" placeholder="Ingrese POD"> 
+
+                      <label for="pod">POD</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                       <input type="date" [(ngModel)]="f_descarga"  class="form-control" id="fdescarga" placeholder="Ingrese Fecha Descarga"> 
+
+                      <label for="fdescarga">Fecha Descarga</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-3">
+                    <div class="form-floating mb-3">
+                      <button class="btn btn-md btn-primary" (click)="getHistorial()">
+                        <i class="bi bi-check-circle"></i> Buscar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                 <h5 class="card-title">
+                 </h5>
+                 <table class="table" >
+                    <thead style="font-size: 16px;">
+                       <tr>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Cliente</th>
+                          <th scope="col">Empresa</th>
+                          <th scope="col">DT</th>
+                          <th scope="col">N° Legal</th>
+                          <th scope="col">Cant. Cajas</th>
+                          <th scope="col">Direccion</th>
+                          <th scope="col">Cliente Solicitante</th>
+                          <th scope="col">Fecha Factura</th>
+                          <th scope="col">POD</th>
+                          <th scope="col">Fecha Descarga</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                          
+                       </tr>
+                    </thead>
+                    <tbody style="font-size: 14px;">
+                       <tr *ngFor="let table of facturas">
+                      
+                          <th scope="row">{{ table.estado_final}}</th>
+                          <td>{{ table.cliente }}</td>
+                          <td class="text-center">{{ table.empresa_ }}</td>
+                          <td style="border: 2px solid rgb(241, 152, 152); display: inline-block; margin-top: 5px; background-color: #fddddd;">{{ table.dt }}</td>
+                          <td class="text-center">{{ table.nro_legal }}</td> <!-- table.nro_legal-->
+                          <td>{{ table.cantidad_cajas }}</td>
+                          <td>{{ table.direccion }}</td>
+                          <td class="text-center">{{ table.desc_solicitante }}</td>
+                          <td class="text-center" >{{ table.fa_fat_real }}</td>
+                          <td class="text-center" style="border: 2px solid rgb(159, 241, 152); display: inline-block; margin-top: 5px; background-color: #ddfde0;">{{ table.confpod }}</td>
+                          <td class="text-center">{{ table.f_descarga }}</td>
+
+                          <td *ngIf="hasRole('ROLE_GENERAL')">
+                            <div data-bs-toggle="tooltip" data-bs-placement="left" title="Conformar" (click)="Conformar(table)"> 
+                              <button class="btn btn-outline-primary" data-bs-toggle="modal" >
+                                <i class="bi bi-check-circle"></i>
+                              </button>
+                            </div>
+                          </td>
+
+                          <td *ngIf="hasRole('ROLE_GENERAL')|| hasRole('ROLE_TRANSPORTE')">                       
+                          <div data-bs-toggle="tooltip" data-bs-placement="left" title="Ver Factura"> 
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalFactura"  (click)="verDetallesFactura(table); getBitacora()">
+                              <i class="bi bi-eye"></i>
+                            </button>
+                          </div>
+                          </td>
+                          <td *ngIf="hasRole('ROLE_GENERAL')|| hasRole('ROLE_TRANSPORTE')">
+                            <div data-bs-toggle="tooltip" data-bs-placement="left" title="Conformidad POD"> 
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPOD" (click)="verDetallesFactura(table)">
+                              <i class="bi bi-calendar4-event"></i>
+                            </button>
+                            </div>
+                          </td>
+
+                          <td *ngIf="hasRole('ROLE_GENERAL')|| hasRole('ROLE_TRANSPORTE')">
+                            <div data-bs-toggle="tooltip" data-bs-placement="left" title="Subir Archivo"> 
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalArchivo" (click)="verDetallesFactura(table)">
+                              <i class="bi bi-upload"></i>
+                            </button>
+                            </div>
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+
+    <div class="modal fade" id="modalFactura" tabindex="-1">
+      
+      <div class="modal-dialog modal-xl modal-lg modal-dialog-centered" style="margin-top: 5%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ver Archivos</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>            
+          <div class="modal-body">
+            <div *ngIf="selectedFactura">
+              <label for="comentario" class="form-label">Detalles de la Factura:</label>
+              
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">DT</th> 
+                      <th scope="col">N° Legal</th>
+                      <th scope="col">Cant Cajas</th>
+                      <th scope="col">Direccion</th>
+                      <th scope="col">Client. Solicitante</th>
+                      <th scope="col">Fecha Factura</th>
+                      <th scope="col">POD</th>
+                      <th scope="col">Fecha Descarga</th> 
+                      <th> </th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ selectedFactura.cliente }}</td>
+                      <td>{{ selectedFactura.dt}}</td>
+                      <td>{{ selectedFactura.nro_legal}}</td>
+                      <td>{{ selectedFactura.cantidad_cajas}}</td>
+                      <td>{{ selectedFactura.direccion}}</td>
+                      <td>{{ selectedFactura.desc_solicitante}}</td>
+                      <td>{{ selectedFactura.fa_fat_real}}</td>
+                      <td>{{ selectedFactura.confpod}}</td>
+                      <td>{{ selectedFactura.f_descarga}}  </td>
+                      <td *ngIf="hasRole('ROLE_GENERAL')">
+                        <div data-bs-toggle="tooltip" data-bs-placement="left" title="Conformar" (click)="Conformar(selectedFactura)"> 
+                          <button class="btn btn-outline-primary" data-bs-toggle="modal" >
+                            <i class="bi bi-check-circle"></i>
+                          </button>
+                        </div>
+                      </td>
+                      <td *ngIf="hasRole('ROLE_GENERAL')">
+
+                        <div data-bs-toggle="tooltip" data-bs-placement="left" title="Agregar Comentario"> 
+                          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalcomentario" >
+                            <i class="bi bi-chat-left-dots"></i>
+                          </button>
+                          </div>
+                        
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+              <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#content1" role="tab" aria-controls="content1" aria-selected="true">Factura</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#content2" role="tab" aria-controls="content2" aria-selected="false">Vale Pallet</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#content3" role="tab" aria-controls="content3" aria-selected="false">Bitacora</a>
+                </li>
+              </ul>
+              <div class="tab-content" *ngIf="selectedFactura">
+                <!-- Contenido de la primera pestaña -->
+                <div class="tab-pane fade show active" id="content1" role="tabpanel" aria-labelledby="tab1">
+                  {{ selectedFactura.facturaurl}} 
+                  <!--<iframe [src]="this.facturaurl" width="100%" height="500px"></iframe> -->
+                  <iframe [src]="this.facturaurl" width="100%" height="500px"></iframe>
+
+
+                </div>
+                <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">
+                  <!-- Contenido de la segunda pestaña -->
+                 <!--{{ selectedFactura.vale_palleturl}}    -->                             
+                  <iframe [src]="this.vale_palleturl" width="100%" height="500px"></iframe>
+                </div>
+                <div class="tab-pane fade" id="content3" role="tabpanel" aria-labelledby="tab3" (click)="getBitacora()">
+                      
+
+                  <div class="card-body">
+                    <h5 class="card-title">
+                    </h5>
+                    <table class="table" >
+                       <thead style="font-size: 16px;">
+                          <tr>
+                             <th scope="col"></th>
+                             <th scope="col"></th>                       
+                          </tr>
+                       </thead>
+                       <tbody style="font-size: 14px;">
+                          <tr *ngFor="let table of bitacora">
+                         
+                            <td scope="row" class="texto-derecha linea-vertical"> <strong class="margen-derecho"> Fecha:</strong>{{ table.fecha}}</td>                             
+           
+                            <td class="text-center" class="texto-izquierda"> 
+                              <strong class="margen-derecho">Actividad: </strong>{{ table.actividad}} <br>
+                              <strong class="margen-derecho"> Responsable: </strong>{{ table.responsable }}<br>
+                              <ng-container *ngIf="table.comentarios"><strong class="margen-derecho">Comentario: </strong>{{ table.comentarios }}</ng-container>
+                            </td> 
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>
+ 
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalPOD" tabindex="-1">
+      <div class="modal-dialog  modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">POD</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="row mb-3">
+                      <div class="col-md-6">
+                          <label for="fechaPOD" class="form-label">Seleccionar Fecha POD:</label>
+                          <input type="date" class="form-control" id="fechaPOD" [(ngModel)]="confpod">
+                          <button type="button" class="btn btn-primary btn-block mt-2" (click)="savePOD()">Cargar POD</button>
+
+                      </div>
+                  </div>
+                </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="modalcomentario" tabindex="-1">
+      <div> 
+       <div class="modal-dialog modal-dialog-centered custom-slim-modal">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title">Archivo</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="comentario" class="form-label">COMENTARIO:</label>
+                      <textarea class="form-control custom-wide-textarea" id="comentarioPOD"  [(ngModel)]="comentario" rows="4"></textarea>
+                      <button type="button" class="btn btn-primary btn-block mt-2" (click)="saveComentario()">Guardar Comentario</button>
+                    </div>
+                   </div>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+               </div>
+           </div>
+       </div>
+       </div>
+       </div>
+
+
+
+
+     <div class="modal fade" id="modalArchivo" tabindex="-1">
+     <div> 
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Archivo</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="row mb-3">
+                      <div class="col-md-6">
+                          <label for="cargaFactura" class="form-label">Factura:</label>
+                          <input type="file"  class="form-control" (change)="onFileSelected($event)" id="cargaFactura">
+                          <button type="button" class="btn btn-primary btn-block mt-2" (click)="uploadFile('cargaFactura')">Cargar Factura</button>
+                      </div>
+                      
+                      <div class="col-md-6">
+                          <label for="cargaValePallet" class="form-label">Vale Pallet:</label>
+                          <input type="file" class="form-control"  (change)="onFileSelected($event)"id="cargaValePallet">
+                          <button type="button" class="btn btn-primary btn-block mt-2" (click)="uploadFile('cargaValePallet')">Cargar Vale Pallet</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+  </section>
+</main>
